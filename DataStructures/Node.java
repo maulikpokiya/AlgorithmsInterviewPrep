@@ -1,5 +1,3 @@
-package me.maulikpokiya.datastructures;
-
 public class Node {
 
 	int data;
