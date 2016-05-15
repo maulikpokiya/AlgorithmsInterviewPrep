@@ -2,39 +2,39 @@ import java.util.Iterator;
 
 public class LinkedList<T> implements Iterable<T> {
 
-	Node<T> head;
+	LinkedListNode<T> head;
 
 	public LinkedList() {
 		head = null;
 	}
 
-	public LinkedList(Node<T> head) {
+	public LinkedList(LinkedListNode<T> head) {
 		this.head = head;
 	}
 
-	public Node<T> searchNode(T val) {
+	public LinkedListNode<T> searchNode(T val) {
 
-		Node<T> temp = head;
+		LinkedListNode<T> temp = head;
 		while (temp != null && temp.data != val) {
 			temp = temp.next;
 		}
 		return temp;
 	}
 
-	public Node<T> addFirst(T val) {
+	public LinkedListNode<T> addFirst(T val) {
 
-		head = new Node<T>(val, head);
+		head = new LinkedListNode<T>(val, head);
 		return head;
 	}
 
 	public void traverse() {
-		Node<T> temp = head;
+		LinkedListNode<T> temp = head;
 		while (temp != null)
 			temp = temp.next;
 	}
 
-	public Node<T> addLast(T val) {
-		Node<T> temp = head;
+	public LinkedListNode<T> addLast(T val) {
+		LinkedListNode<T> temp = head;
 
 		if (temp == null)
 			addFirst(val);
@@ -42,13 +42,13 @@ public class LinkedList<T> implements Iterable<T> {
 			while (temp.next != null) {
 				temp = temp.next;
 			}
-			temp.next = new Node<T>(val);
+			temp.next = new LinkedListNode<T>(val);
 		}
 		return temp;
 	}
 
-	public Node<T> insertAfter(T key, T val) {
-		Node<T> temp = head;
+	public LinkedListNode<T> insertAfter(T key, T val) {
+		LinkedListNode<T> temp = head;
 		if (temp == null)
 			System.out.println("Key not found");
 		else {
@@ -57,14 +57,14 @@ public class LinkedList<T> implements Iterable<T> {
 			if (temp == null)
 				System.out.println("Key not found");
 			else
-				temp.next = new Node<T>(val, temp.next);
+				temp.next = new LinkedListNode<T>(val, temp.next);
 		}
 		return temp.next;
 	}
 
-	public Node<T> insertBefore(T key, T val) {
-		Node<T> temp = head;
-		Node<T> prev = null;
+	public LinkedListNode<T> insertBefore(T key, T val) {
+		LinkedListNode<T> temp = head;
+		LinkedListNode<T> prev = null;
 
 		if (temp == null) {
 			throw new IndexOutOfBoundsException();
@@ -78,15 +78,15 @@ public class LinkedList<T> implements Iterable<T> {
 			else if (prev == null)
 				prev = addFirst(val);
 			else
-				prev.next = new Node<T>(val, temp);
+				prev.next = new LinkedListNode<T>(val, temp);
 		}
 		return prev.next;
 	}
 
-	public Node<T> remove(T val) {
+	public LinkedListNode<T> remove(T val) {
 
-		Node<T> temp = head;
-		Node<T> del = null;
+		LinkedListNode<T> temp = head;
+		LinkedListNode<T> del = null;
 
 		if (temp != null && temp.data == val) {
 			head = temp.next;
@@ -109,7 +109,7 @@ public class LinkedList<T> implements Iterable<T> {
 
 	public void printList() {
 
-		Node<T> temp = head;
+		LinkedListNode<T> temp = head;
 
 		while (temp != null) {
 			System.out.print(temp.data + " ");
@@ -124,7 +124,7 @@ public class LinkedList<T> implements Iterable<T> {
 
 	private class LinkedListIterator implements Iterator<T> {
 
-		private Node<T> nextNode;
+		private LinkedListNode<T> nextNode;
 
 		public LinkedListIterator() {
 			nextNode = head;
@@ -150,6 +150,20 @@ public class LinkedList<T> implements Iterable<T> {
 		@Override
 		public void remove() {
 
+		}
+	}
+
+	private class LinkedListNode<T> {
+		T data;
+		LinkedListNode<T> next;
+
+		public LinkedListNode(T val) {
+			this(val, null);
+		}
+
+		public LinkedListNode(T val, LinkedListNode<T> nextNode) {
+			this.data = val;
+			this.next = nextNode;
 		}
 	}
 }
