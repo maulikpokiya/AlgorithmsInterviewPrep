@@ -153,15 +153,15 @@ public class LinkedList<T> implements Iterable<T> {
 		}
 	}
 
-	private class LinkedListNode<T> {
-		T data;
-		LinkedListNode<T> next;
+	private class LinkedListNode<E> {
+		E data;
+		LinkedListNode<E> next;
 
-		public LinkedListNode(T val) {
+		public LinkedListNode(E val) {
 			this(val, null);
 		}
 
-		public LinkedListNode(T val, LinkedListNode<T> nextNode) {
+		public LinkedListNode(E val, LinkedListNode<E> nextNode) {
 			this.data = val;
 			this.next = nextNode;
 		}
