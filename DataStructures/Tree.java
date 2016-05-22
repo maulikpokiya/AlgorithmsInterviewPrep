@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Tree<T> {
 	TreeNode<T> root;
@@ -14,20 +14,20 @@ public class Tree<T> {
 	}
 
 	public TreeNode<T> search(T val) {
-		List<TreeNode<T>> list = new ArrayList<TreeNode<T>>();
+		LinkedList<TreeNode<T>> queue = new LinkedList<TreeNode<T>>();
 		TreeNode<T> temp = null;
 
 		if (root != null)
-			list.add(root);
+			queue.add(root);
 
-		while (list.size() > 0) {
-			temp = list.get(0);
+		while (queue.size() > 0) {
+			temp = queue.poll();
 
 			if (temp.data == val)
 				break;
 
-			list.addAll(temp.children);
-			list.remove(0);
+			queue.addAll(temp.children);
+			queue.remove(0);
 		}
 
 		if (temp != null && temp.data == val)
@@ -47,7 +47,15 @@ public class Tree<T> {
 		}
 		return newNode;
 	}
-
+/*
+	public void traverse() {
+		TreeNode<T> temp = root;
+		StringBuffer sb = new StringBuffer();
+		
+		if(temp!=null)
+			sb.append(temp.data);
+	}
+*/
 	private class TreeNode<E> {
 		E data;
 		Collection<TreeNode<E>> children;
