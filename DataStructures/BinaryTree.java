@@ -1,5 +1,3 @@
-package me.maulikpokiya.datastructures;
-
 import java.util.LinkedList;
 
 public class BinaryTree<T> {
