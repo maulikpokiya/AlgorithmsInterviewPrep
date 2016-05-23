@@ -15,6 +15,8 @@ public class BinaryTree<T> {
 
 		if (root != null)
 			queue.add(root);
+		else
+			root = new BinaryTreeNode<T>(val);
 
 		while (!queue.isEmpty()) {
 			temp = queue.poll();
@@ -28,6 +30,7 @@ public class BinaryTree<T> {
 			} else {
 				temp.left = new BinaryTreeNode<T>(val);
 			}
+			queue.clear();
 		}
 	}
 
