@@ -34,7 +34,7 @@ public class BinaryTree<T> {
 		}
 	}
 
-	public BinaryTreeNode<T> searchBFS(T val) {
+	public T searchBFS(T val) {
 
 		LinkedList<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
 		BinaryTreeNode<T> temp = null;
@@ -53,9 +53,9 @@ public class BinaryTree<T> {
 		}
 
 		if (temp.data != val)
-			temp = null;
-
-		return temp;
+			return null;
+		else
+			return temp.data;
 	}
 
 	public void traverse(String order) {
