@@ -57,6 +57,46 @@ public class BinarySearchTree {
 			return 0;
 	}
 
+	private BSTNode delete(BSTNode node, int val) {
+
+		BSTNode temp = null;
+		if (val < node.data) {
+			node.left = delete(node.left, val);
+		} else if (val > node.data) {
+			node.right = delete(node.right, val);
+		} else if (node.data == val) {
+			if (node.right == null)
+				node = node.left;
+			else if (node.left == null)
+				node = node.right;
+			else if (node.right.left == null) {
+				temp = node.left;
+				node = node.right;
+				node.left = temp;
+			} else if (node.left.right == null) {
+				temp = node.right;
+				node = node.left;
+				node.right = temp;
+			} else if (node.right.left != null) {
+				node = node.right;
+				while (node.left != null)
+					node = node.left;
+			}
+		}
+		return node;
+	}
+
+	public void delete(int val) {
+		/**
+		 * if deleted node do not have right child, replace deleted node with left child of it. 
+		 * if deleted node's right child do not have left child, replace deleted node with it's right child. 
+		 * if deleted node's right child has left child, replace deleted node with left most child of right sub-tree.
+		 */
+
+		root = delete(root, val);
+
+	}
+
 	public void traverse(String order) {
 
 		switch (order) {
@@ -123,7 +163,8 @@ public class BinarySearchTree {
 			this.right = null;
 		}
 		/*
-		 * @Override public int compare(BSTNode<E> o1, BSTNode<E> o2) { 
+		 * @Override 
+		 * public int compare(BSTNode<E> o1, BSTNode<E> o2) { 
 		 * return 0; 
 		 * }
 		 */
