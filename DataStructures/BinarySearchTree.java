@@ -31,12 +31,12 @@ public class BinarySearchTree {
 				temp = temp.right;
 		}
 
-		if (val > prev.data) {
-			prev.right = new BSTNode(val);
-			System.out.println("prev " + prev.data + " right inserted " + val);
-		} else {
+		if (val < prev.data) {
 			prev.left = new BSTNode(val);
 			System.out.println("prev " + prev.data + " left inserted " + val);
+		} else {
+			prev.right = new BSTNode(val);
+			System.out.println("prev " + prev.data + " right inserted " + val);
 		}
 	}
 
@@ -44,11 +44,7 @@ public class BinarySearchTree {
 		BSTNode temp = root;
 
 		while (temp != null && temp.data != val) {
-
-			if (val < temp.data)
-				temp = temp.left;
-			else
-				temp = temp.right;
+			temp = val < temp.data ? temp.left : temp.right;
 		}
 
 		if (temp != null)
@@ -69,15 +65,7 @@ public class BinarySearchTree {
 				node = node.left;
 			else if (node.left == null)
 				node = node.right;
-			else if (node.right.left == null) {
-				temp = node.left;
-				node = node.right;
-				node.left = temp;
-			} else if (node.left.right == null) {
-				temp = node.right;
-				node = node.left;
-				node.right = temp;
-			} else if (node.right.left != null) {
+			else {
 				node = node.right;
 				while (node.left != null)
 					node = node.left;
