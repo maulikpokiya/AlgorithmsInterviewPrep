@@ -8,10 +8,6 @@ public class BinarySearchTree {
 		root = null;
 	}
 
-	public BinarySearchTree(Integer data) {
-		root = new BSTNode(data);
-	}
-
 	public void insert(Integer val) {
 
 		BSTNode temp = root;
@@ -25,10 +21,7 @@ public class BinarySearchTree {
 
 		while (temp != null) {
 			prev = temp;
-			if (val < temp.data)
-				temp = temp.left;
-			else
-				temp = temp.right;
+			temp = val < temp.data ? temp.left : temp.right;
 		}
 
 		if (val < prev.data) {
@@ -57,13 +50,23 @@ public class BinarySearchTree {
 
 		BSTNode temp = null;
 		if (val < node.data) {
-			node.left = delete(node.left, val);
+			if(node.left != null)
+				node.left = delete(node.left, val);
+			else
+				System.out.println( "Value does not exist" );
 		} else if (val > node.data) {
-			node.right = delete(node.right, val);
-		} else if (node.data == val) {
-			if (node.right == null)
+			if(node.right != null)
+				node.right = delete(node.right, val);
+			else
+				System.out.println( "Value does not exist" );
+		} else if (node.data == val) { 
+			
+			// Special case where root needs to be removed will also be handeled by this part.
+			if (node.right == null) {
+				temp = node;
 				node = node.left;
-			else if (node.left == null)
+				temp = null;
+			} else if (node.left == null)
 				node = node.right;
 			else {
 				node = node.right;
@@ -76,13 +79,12 @@ public class BinarySearchTree {
 
 	public void delete(int val) {
 		/**
-		 * if deleted node do not have right child, replace deleted node with left child of it. 
-		 * if deleted node's right child do not have left child, replace deleted node with it's right child. 
-		 * if deleted node's right child has left child, replace deleted node with left most child of right sub-tree.
+		 * if deleted node do not have right child, replace deleted node with left child of it.
+		 * if deleted node do not have left child, replace deleted node with right child of it.
+		 * else, replace deleted node with left most child of right sub-tree.
 		 */
 
 		root = delete(root, val);
-
 	}
 
 	public void traverse(String order) {
@@ -111,9 +113,7 @@ public class BinarySearchTree {
 
 		if (node != null) {
 			System.out.println(node.data);
-
 			preorder(node.left);
-
 			preorder(node.right);
 		}
 	}
@@ -122,9 +122,7 @@ public class BinarySearchTree {
 
 		if (node != null) {
 			inorder(node.left);
-
 			System.out.println(node.data);
-
 			inorder(node.right);
 		}
 	}
@@ -133,9 +131,7 @@ public class BinarySearchTree {
 
 		if (node != null) {
 			postorder(node.left);
-
 			postorder(node.right);
-
 			System.out.println(node.data);
 		}
 	}
